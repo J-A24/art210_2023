@@ -1,9 +1,10 @@
-int nBalls = 10;
+int nBalls = 1000;
 ball[] aBall = new ball[nBalls];
 
 void setup()
 {
-  size(800,600);
+  //size(800,600);
+  fullScreen();
   noStroke();
     for(int i=0; i < nBalls;i++)   //i = whatBall
   {
@@ -18,7 +19,7 @@ void draw()
   
     for(int i=0; i < nBalls;i++)
   {
-    aBall[i].display();
+    aBall[i].display(nBalls);
     aBall[i].move();
     aBall[i].check(width,height);
   }

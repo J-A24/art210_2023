@@ -19,10 +19,10 @@ class ball
   //println(_id);
   }
  
- void display()
+ void display(int colorScale)
  {
   
-   fill(color(20*id,0,100));
+   fill(color(2.5*id,0,100));
    circle(xCor,yCor,bSize);
    //print(i);
  }
@@ -35,29 +35,26 @@ class ball
  
   void check(float maxX, float maxY)
  {
-   if(xCor >maxX || xCor<0) 
+   if(xCor >maxX) 
    {
      xSp *=-1;
-     xSp = Xacceration(int(random(1,3)));
+     xSp -=random(2.0,3.3);
    }
-   if(yCor >maxY || yCor<0) 
+   if(xCor<0) 
+   {
+     xSp *=-1;
+     xSp +=random(1.0,3.3);
+   }
+   if(yCor >maxY) 
    {
      ySp *=-1;
-     ySp = Yacceration(int(random(1,3)));
+     ySp -=random(2.0,3.3);
    }
-  }
-
-  float Xacceration(int rand)
-  {
-    //if(rand ==1) return xSp+random(0.0,0.2);
-    //if(rand ==2) return xSp*.2;
-    return xSp;
-  }
-  float Yacceration(int rand)
-  {
-    //if(rand ==1) return ySp+random(0.0,0.2);
-    //if(rand ==2) return ySp+random(1.0,4.0);
-    return ySp;
+   if(yCor<0) 
+   {
+     ySp *=-1;
+     ySp +=random(1.0,3.3);
+   }
   }
 
 }
