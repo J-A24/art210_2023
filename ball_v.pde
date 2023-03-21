@@ -1,7 +1,7 @@
 PVector location = new PVector(100,100);
 PVector velocity = new PVector(1,3.3);
 PVector acceleration = new PVector(0.1,0.9);
-int nBalls = 900;
+int nBalls = 100;
 Mover[] move = new Mover[nBalls];
 
 void setup() {
@@ -14,7 +14,7 @@ void setup() {
   
   for(int i=0; i < nBalls;i++)
   {
-    move[i] = new Mover(width/2,height/2); //center on screen
+    move[i] = new Mover(i+random(width),height/2); //center on screen
   }
 }
 
@@ -27,7 +27,8 @@ void draw()
     
    for(int i=0; i < nBalls;i++)
    {
-     move[i].display();
+     move[i].applyForce(new PVector(0.0,0.1), new PVector(0.01,0.0)); //gravity & wind
+     move[i].display();     
      move[i].update();
      move[i].check();
    }
