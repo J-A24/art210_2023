@@ -1,5 +1,6 @@
 // this class not nessary sine part of proccessing
 
+/*
 class PVector 
 { 
   float x;
@@ -10,10 +11,11 @@ class PVector
     this.x = x_;
     this.y = y_;
   }
-  void add(PVector v) //v - is another vector
+  void add(PVector increment) //increment - is another vector
   {
-    y = y + v.y;
-    x = x + v.x;
+    this.y += increment.y;
+    this.x += increment.x;
   }
      
 }
+*/
