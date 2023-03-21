@@ -3,6 +3,7 @@ class Mover //never use gobal var so class is self sustaining
   PVector location = new PVector(0,0);
   PVector velocity = new PVector(0,0);
   PVector acceleration = new PVector(0,0);
+  float topspeed;
   
   Mover(float _x, float _y) 
   {
@@ -10,6 +11,7 @@ class Mover //never use gobal var so class is self sustaining
     this.location.y = _y;
     this.acceleration.x = -0.001;
     this.acceleration.y = 0.01;
+    topspeed =10;
   }
   
   void display()
@@ -21,7 +23,50 @@ class Mover //never use gobal var so class is self sustaining
   
   void update()
   {
-    this.velocity.add(this.acceleration);
+   PVector mouse = new PVector(mouseX,mouseY);
+   PVector dir1 = PVector.sub(mouse,location);
+   dir1.normalize();
+   dir1.rotate(radians(50)); //if used ball will avoid you
+   
+   PVector dir2 = PVector.random2D();
+   dir2.normalize(); //so vector length equal to 1
+   dir2.mult(3); //more extreme movement in randomness of the vector
+   
+   //PVector dir = PVector.lerp(dir1,dir2,0.5); //colcuate between 2#s and how often it checks the dist between
+   float sliderVaule = PVector.sub(mouse,location).mag()/-400.0; //mag returns the length of vector & divied by # to change dection range
+   if (sliderVaule >1.0) sliderVaule =1.0;
+   PVector dir = PVector.lerp(dir1,dir2,sliderVaule);
+   
+   this.acceleration = dir.mult(.5);
+    
+      //combine the previous types of acceleration
+   /*PVector mouse = new PVector(mouseX,mouseY);
+   PVector dir1 = PVector.sub(mouse,location);
+   dir1.normalize();
+   
+   PVector dir2 = PVector.random2D();
+   dir2.normalize();
+   dir2.mult(3); //more extreme movement in randomness
+   
+   PVector dir = dir1.add(dir2);
+   this.acceleration = dir.mult(.3);
+   */
+   
+       //ball move to mouse curser
+   /*PVector mouse = new PVector(mouseX,mouseY);
+   PVector dir = PVector.sub(mouse,location);
+   dir.normalize();
+   this.acceleration = dir.mult(.3); //try dif #s (if neg - you chase ball)
+    */
+    
+      //add random to the vector for direction
+    //this.acceleration.x = random(-0.5,.);
+    //this.acceleration.y = random(-0.5,1);
+    //this.acceleration = PVector.random2D(); //do this since working with vectors
+   
+       //have the ball move
+   this.velocity.add(this.acceleration);
+   this.velocity.limit(topspeed); //"limit" built into procressing doesnot allow to across a given value
    this.location.add(this.velocity); 
   }
   
@@ -33,8 +78,9 @@ class Mover //never use gobal var so class is self sustaining
   
       //warp - no bounce
   if((this.location.x < 0)) this.location.x = width;
-  if((this.location.x < width)) this.location.x = 0;
+  if((this.location.x > width)) this.location.x = 0;
   if((this.location.y < 0)) this.location.y = height;
-  if((this.location.y < height)) this.location.y = 0;
+  if((this.location.y > height)) this.location.y = 0;
+ 
   }
 }
