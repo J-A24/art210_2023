@@ -12,7 +12,8 @@ void draw () {
   translate(width/2,height/2);
   z.spd = constrain((float)mouseX/width,0.12,0.35);
   z.show();
-  s.update();
+  
   s.show();
+  s.update();
   s.check();
 }

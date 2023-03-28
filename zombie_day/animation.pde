@@ -25,7 +25,7 @@ class animation{
      for (int i=0; i <= files.length - 1; i++) {
        String path = files[i].getAbsolutePath();
        if(path.toLowerCase().endsWith(".svg")) {
-         this.frameS[count] = loadShape(path);
+         this.frameS[count] = loadShape(path);                //changed from length of files in fold bc there was hidden ones being counted in the length - now only count svgs
          count ++;
        }
        if(path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png")) {
@@ -45,7 +45,7 @@ class animation{
     }
     this.counter += this.spd;
     this.frame = floor(this.counter);      //floor: will drop all the numbers after a decimal
-    if(this.frame >  nFrames-1) {
+    if(this.frame >  nFrames-1) {         //changed from length of files in fold bc there was hidden ones being counted in the length
       this.counter =0;
       this.frame=0;
     }
