@@ -25,10 +25,12 @@ class sprite {
   
   void show() {
      pushMatrix();
-       translate(this.pos.x*2, this.pos.y*2);
+       translate(this.pos.x, this.pos.y);
       
        noFill();
        stroke(50);
+       //PVector h = PVector.sub(this.pos,this.reg);
+       //rect(h.x, h.y, this.w, this.h);
        rect(-reg.x, -reg.y, this.w, this.h);
        noStroke();
        
@@ -41,11 +43,17 @@ class sprite {
   }
   
   void check() {
-    if(this.pos.x < -200) this.pos.x = width;
-    if(this.pos.y < -200) this.pos.y = height;
-    if(this.pos.x > width) this.pos.x = -200;
-    if(this.pos.y > height) this.pos.y = -200;
-    this.vel.limit(10);                                      //set max speed of sprite
+    if(this.pos.x < -width/2) this.pos.x = width;
+    if(this.pos.y < -height/2) this.pos.y = height;
+    if(this.pos.x > width) this.pos.x = -width/2;
+    if(this.pos.y > height) this.pos.y = -height/2;
+    /*
+    float spd = this.vel.mag();
+    if(spd >10) {
+      this.vel = this.vel.normalize().mult(10);  
+    }
+    */
+    this.vel.limit(20); //set max speed of sprite
     
   }
   
