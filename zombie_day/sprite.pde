@@ -9,7 +9,9 @@ class sprite {
   
   int maxA = 10;         //Mamium number of animations
   int curA = 0;           //current animation
+  int nA = 0;         //how many animation it has
   animation[] A = new animation[maxA];
+  float scale = .6;
   
   sprite(String id, PVector pos, PVector vel, PVector acc) {
      this.id = id;
@@ -18,6 +20,17 @@ class sprite {
      this.acc = acc;
   }
   
+  void regA(animation _A) {      //register animation to the object
+     if(this.nA < this.maxA) {
+     this.A[this.nA] = _A;
+     this.nA ++;
+     } else {
+       println("error: animation number overflow"); 
+     }
+  }
+  
+  
+  
   void update() {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
@@ -25,16 +38,23 @@ class sprite {
   
   void show() {
      pushMatrix();
-       translate(this.pos.x, this.pos.y);
-      
+     translate(this.pos.x, this.pos.y);      //need to center on canvas
+     pushMatrix();
+       scale(this.scale);
+       this.A[this.curA].show();      //show from the animation class
+     popMatrix();
+       test_show();           //for testing if needed later on
+     popMatrix();
+  }
+  
+  void test_show() {
+     pushMatrix();
        noFill();
-       stroke(50);
-       //PVector h = PVector.sub(this.pos,this.reg);
-       //rect(h.x, h.y, this.w, this.h);
+       stroke(75,0,0);
        rect(-reg.x, -reg.y, this.w, this.h);
        noStroke();
        
-       fill(color(0, 255, 10));
+       fill(color(0, 255, 10,60));
        circle(0,0,this.radC*2);
        
        fill(color(255,50,10));
@@ -43,17 +63,24 @@ class sprite {
   }
   
   void check() {
-    if(this.pos.x < -width/2) this.pos.x = width;
-    if(this.pos.y < -height/2) this.pos.y = height;
-    if(this.pos.x > width) this.pos.x = -width/2;
-    if(this.pos.y > height) this.pos.y = -height/2;
-    /*
-    float spd = this.vel.mag();
-    if(spd >10) {
-      this.vel = this.vel.normalize().mult(10);  
+    collision c = new collision(this, true);
+    int a = c.bCheck(100,100,width-200,height-200);
+    //if(a == collision.RIGHT) this.pos.x = 0;
+    if(a == collision.RIGHT || a == collision.LEFT) {
+      this.acc.x *= -1.0; 
+      this.vel.x *= -1.0; 
     }
-    */
-    this.vel.limit(20); //set max speed of sprite
+    
+    if(c.c2c(s) == collision.IN) {         //circle to circle detection
+      print("caught");
+    }
+    
+    if(this.vel.x < 0) {
+      this.curA = 1; 
+    } else {
+       this.curA = 0;
+    }
+    this.vel.limit(5);                       //set max speed of sprite
     
   }
   
