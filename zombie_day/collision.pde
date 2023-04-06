@@ -18,29 +18,40 @@ class collision {
    this.isCir = isCir;
   }
   
-  int bCheck(float x, float y, float w, float h) {         //check box for ground
+  int b2p(float x, float y, float w, float h) {                    //using the true (as programmed) size of canvas without offset from sprites center
+  int a=0;
+     if(this.s.pos.x  < x) a += LEFT;
+     if(this.s.pos.y  < y) a += TOP;
+     if(this.s.pos.x > x+w) a += RIGHT;
+     if(this.s.pos.y > y+h) a += BOTTOM; 
+     return(a);
+  }
+  
+  
+  int b2c(float x, float y, float w, float h, boolean IN) {         //check box to the circle
     int a=0;
-    if(this.s.pos.x < x) a += LEFT;
-    if(this.s.pos.y < y) a += TOP;
-    if(this.s.pos.x  > x+w) a += RIGHT;
-    if(this.s.pos.y > y+h) a += BOTTOM; 
+    if(IN) {                                                     //use within the canvas
+      
+      if(this.s.pos.x - this.s.radC < x) a += LEFT;
+      if(this.s.pos.y - this.s.radC < y) a += TOP;
+      if(this.s.pos.x + this.s.radC> x+w) a += RIGHT;
+      if(this.s.pos.y + this.s.radC> y+h) a += BOTTOM; 
+      
+    } else {                                                       //use out of canvas
+      
+      if(this.s.pos.x + this.s.radC < x) a += LEFT;
+      if(this.s.pos.y + this.s.radC < y) a += TOP;
+      if(this.s.pos.x - this.s.radC > x+w) a += RIGHT;
+      if(this.s.pos.y - this.s.radC > y+h) a += BOTTOM; 
+    }
     return(a);
   }
   
-  int bCirc(float x, float y, float w, float h) {         
-    int b=0;
-    if(this.s.pos.x + this.s.radC < x) b += LEFT;
-    if(this.s.pos.y + this.s.radC < y) b += TOP;
-    if(this.s.pos.x - this.s.radC > x+w) b += RIGHT;
-    if(this.s.pos.y - this.s.radC > y+h) b += BOTTOM; 
-    return(b);
-  }
-  
-  int c2c(sprite s) {
-    if(this.s.id != s.id) {
+  int c2c(sprite s) {                                                     //cirle to circle
+    if(this.s.id != s.id) {                                     //check if current id (in dist around main sprite) is not equal to the main sprite 
       PVector dist = PVector.sub(this.s.pos, s.pos);
       float d = dist.mag();
-      float md = (this.s.radC + s.radC)/2;   //divide by 2 since it looking at diameter but want radius
+      float md = (this.s.radC + s.radC)/2.0;   //md is the miniimum distance || also, divide by 2 since it looking at diameter but want radius
       if(d < md) return(IN);
     }
     return(OUT);

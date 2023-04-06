@@ -38,11 +38,11 @@ class sprite {
   
   void show() {
      pushMatrix();
-     translate(this.pos.x, this.pos.y);      //need to center on canvas
-     pushMatrix();
-       scale(this.scale);
-       this.A[this.curA].show();      //show from the animation class
-     popMatrix();
+       translate(this.pos.x, this.pos.y);      //need to center on canvas
+       pushMatrix();
+         scale(this.scale);
+         this.A[this.curA].show();      //show from the animation class
+       popMatrix();
        test_show();           //for testing if needed later on
      popMatrix();
   }
@@ -64,7 +64,7 @@ class sprite {
   
   void check() {
     collision c = new collision(this, true);
-    int a = c.bCheck(100,100,width-200,height-200);
+    int a = c.b2c(100,100,width-200,height-200,true);               //true=normall || false=adjusted
     //if(a == collision.RIGHT) this.pos.x = 0;
     if(a == collision.RIGHT || a == collision.LEFT) {
       this.acc.x *= -1.0; 

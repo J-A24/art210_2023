@@ -22,3 +22,4 @@ void mouseClicked() {
   s.acc.x *= -1.0; 
   s.vel.x *= -1.0; 
 }
+//z.spd = constrain((float)mouseX/width,0.12,0.35);
