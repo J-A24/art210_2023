@@ -43,6 +43,7 @@ class animation{
   }
   
   void show() {
+    spd = constrain(random(width/2)/width,0.12,0.35);
     pushMatrix();
     //scale(this.scale);
     if(isSvg) {

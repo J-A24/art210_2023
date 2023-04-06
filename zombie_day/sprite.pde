@@ -6,12 +6,16 @@ class sprite {
   float h = 100;  //height of collison box
   PVector reg = new PVector(w/2.0, h/2.0);  //set registation point in center of object
   float radC = w/2.0;    //radius of collsion box
+  boolean test = false;
   
   int maxA = 10;         //Mamium number of animations
   int curA = 0;           //current animation
   int nA = 0;         //how many animation it has
   animation[] A = new animation[maxA];
   float scale = .6;
+  float rotate = 0;
+  
+  PVector boxC = new PVector(w,h);   //for box coll
   
   sprite(String id, PVector pos, PVector vel, PVector acc) {
      this.id = id;
@@ -25,7 +29,7 @@ class sprite {
      this.A[this.nA] = _A;
      this.nA ++;
      } else {
-       println("error: animation number overflow"); 
+       println("ERROR: animation number overflow"); 
      }
   }
   
@@ -41,25 +45,28 @@ class sprite {
        translate(this.pos.x, this.pos.y);      //need to center on canvas
        pushMatrix();
          scale(this.scale);
+         rotate(radians(this.rotate));
          this.A[this.curA].show();      //show from the animation class
        popMatrix();
        test_show();           //for testing if needed later on
      popMatrix();
   }
   
-  void test_show() {
-     pushMatrix();
-       noFill();
-       stroke(75,0,0);
-       rect(-reg.x, -reg.y, this.w, this.h);
-       noStroke();
-       
-       fill(color(0, 255, 10,60));
-       circle(0,0,this.radC*2);
-       
-       fill(color(255,50,10));
-       circle(0,0,10);
-     popMatrix();
+  void test_show() {             //shows hitboxes
+    if(test) {              //test: is created in setup (zombie day)
+       pushMatrix();
+         noFill();
+         stroke(75,0,0);
+         rect(-reg.x, -reg.y, this.w, this.h);
+         noStroke();
+         
+         fill(color(0, 255, 10,60));
+         circle(0,0,this.radC*2);
+         
+         fill(color(255,50,10));
+         circle(0,0,10);
+       popMatrix();
+    }
   }
   
   void check() {
@@ -72,7 +79,9 @@ class sprite {
     }
     
     if(c.c2c(s) == collision.IN) {         //circle to circle detection
-      print("caught");
+      println("Caught!");
+    } else {
+      println("NOT caught");
     }
     
     if(this.vel.x < 0) {
@@ -82,6 +91,6 @@ class sprite {
     }
     this.vel.limit(5);                       //set max speed of sprite
     
-  }
+  } 
   
 }

@@ -18,7 +18,7 @@ class collision {
    this.isCir = isCir;
   }
   
-  int b2p(float x, float y, float w, float h) {                    //using the true (as programmed) size of canvas without offset from sprites center
+  int b2p(float x, float y, float w, float h) {                    //box to point: using the true (as programmed) size of canvas without offset from sprites center
   int a=0;
      if(this.s.pos.x  < x) a += LEFT;
      if(this.s.pos.y  < y) a += TOP;
@@ -31,7 +31,6 @@ class collision {
   int b2c(float x, float y, float w, float h, boolean IN) {         //check box to the circle
     int a=0;
     if(IN) {                                                     //use within the canvas
-      
       if(this.s.pos.x - this.s.radC < x) a += LEFT;
       if(this.s.pos.y - this.s.radC < y) a += TOP;
       if(this.s.pos.x + this.s.radC> x+w) a += RIGHT;
@@ -55,6 +54,11 @@ class collision {
       if(d < md) return(IN);
     }
     return(OUT);
+  }
+  
+  int b2b(float x, float y, float w, float h) {
+    
+    return(0);
   }
   
 }
