@@ -1,20 +1,21 @@
-/*class bob extends sprite {    //extends: so Bob has everything that is in the sprite class
-  float spdM = 3;       //set maxium topspeed
+class Bob extends sprite {    //extends: so Bob has everything that is in the sprite class
+  float spdM = 3;       //set topspeed
   
-  bob(String id, PVector pos, PVector vel, PVector acc) {
-     //super(id);           //has the constructor of the parent class
+  Bob(String id, PVector pos, PVector vel, PVector acc) {
+     super(id, pos, vel, acc);      //has the constructor of the parent class
+    
+     this.acc = new PVector(0.05,0);                                    //walk speed horizontal ONLY - else could walk out of collion box
+     this.regA(new animation("zombie", "svg"));                             //animation 1
+     this.regA(new animation("r_zombie", "svg"));                          //animation 0 - reverse
      
-     this.pos = pos;
-     this.vel = vel;
-     this.acc = acc;
-     this.scale = 1.0;
-     this.pos.y = height-this.h;
+     this.scale = 0.7;                                      //scale of object
+     this.pos.y = height-this.h-75;
   }
   
   void check() {
-    super.check();   //uses check from the sprite class 
+    collision c = new collision(this, true);
     int a = c.b2c(100,100,width-200,height-200,true);
-    if(a == collision.RIGHT || a == collision.LEFT) {
+    if(a == collision.RIGHT || a == collision.LEFT) {            //flip direction
       this.acc.x *= -1.0; 
       this.vel.x *= -1.0; 
     }    
@@ -26,4 +27,4 @@
     }
   }
   
-} */
+} 

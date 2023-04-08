@@ -13,7 +13,8 @@ class sprite {
   int nA = 0;         //how many animation it has
   animation[] A = new animation[maxA];
   float scale = .6;
-  float rotate = 0;
+  float rotate = 0.0;         //rotation of the object
+  PVector translation = new PVector(0,0);
   
   PVector boxC = new PVector(w,h);   //for box coll
   
@@ -41,12 +42,13 @@ class sprite {
   }
   
   void show() {
-     pushMatrix();
+       pushMatrix();
        translate(this.pos.x, this.pos.y);      //need to center on canvas
        pushMatrix();
          scale(this.scale);
+         translate(this.translation.x, this.translation.y);
          rotate(radians(this.rotate));
-         this.A[this.curA].show();      //show from the animation class
+         this.A[this.curA].show();
        popMatrix();
        test_show();           //for testing if needed later on
      popMatrix();
@@ -90,7 +92,7 @@ class sprite {
        this.curA = 0;
     }
     this.vel.limit(5);                       //set max speed of sprite
-    
+                                     
   } 
   
 }
