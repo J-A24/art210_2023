@@ -72,7 +72,7 @@ class sprite {
   }
   
   void check() {
-    collision c = new collision(this, true);
+    /*collision c = new collision(this, true);
     int a = c.b2c(100,100,width-200,height-200,true);               //true=normall || false=adjusted
     //if(a == collision.RIGHT) this.pos.x = 0;
     if(a == collision.RIGHT || a == collision.LEFT) {
@@ -92,7 +92,7 @@ class sprite {
        this.curA = 0;
     }
     this.vel.limit(5);                       //set max speed of sprite
-                                     
-  } 
+        */                                  
+  }
   
 }

@@ -1,5 +1,5 @@
 class Object extends sprite {    
-  float spdM = 3;     
+  float spdM = 3;
   
   Object(String id, PVector pos, PVector vel, PVector acc) {
      super(id, pos, vel, acc);          //has the constructor of the parent class
@@ -28,9 +28,9 @@ class Object extends sprite {
       this.acc.y = random(0.00, 0.6);
     }   
     
-    a = c.c2c(s);                          //when these objects collide with Bob
-    if(a == collision.IN) {                     //a: is just a varible for the result
-    }
+    //a = c.c2c(s);                          //when these objects collide with Bob
+    //if(a == collision.IN) {                     //a: is just a varible for the result
+    //}
   }
   
 } 

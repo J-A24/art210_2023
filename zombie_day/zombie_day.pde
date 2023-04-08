@@ -9,6 +9,8 @@ boolean test = false;       //to allow when clicking if testing hitboxes display
 void setup() {
   noStroke();
    size(720,720);
+   textAlign(CENTER);
+   textSize(128);
    
    s = new Bob("ANY", new PVector(width/2,height/2), new PVector(0,0), PVector.random2D());
    for(int i=0; i <n; i++) {
@@ -23,7 +25,7 @@ void draw () {
   
   s.show();
   s.update();
-  s.check();
+  s.check(n);      //to check collion of the objects
   s.test = test;          
   
   for(int i=0; i <n; i++) {
