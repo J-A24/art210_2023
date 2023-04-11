@@ -11,10 +11,10 @@ class Object extends sprite {
      
      this.scale = 0.45;
      this.rotate = 90.0;                            //initialize the roatation of the object (I didnt need this but good to know if make use of later)
-     this.w = 30;                                      //change width of hitbox
-     this.h = 30;                                      // change height of hitbox
-     //this.reg.x = this.w/2;                  //offset the animation X around the hitbox
-     //this.reg.y = this.h / -2.0;             //offset the animation Y around the hitbox
+     this.w = 45;                                      //change width of hitbox
+     this.h = 45;                                      // change height of hitbox
+     this.reg.x = this.w/2;                  //offset the animation X around the hitbox
+     this.reg.y = this.h /2;             //offset the animation Y around the hitbox
   }
   
   void check() {
