@@ -15,6 +15,8 @@ class Object extends sprite {
      this.h = 45;                                      // change height of hitbox
      this.reg.x = this.w/2;                  //offset the animation X around the hitbox
      this.reg.y = this.h /2;             //offset the animation Y around the hitbox
+     
+     this.radC = w/2.15;
   }
   
   void check() {

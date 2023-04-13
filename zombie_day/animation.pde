@@ -13,7 +13,6 @@ class animation{
      frame = 0;
      spd = 0.1;
      counter = 0;
-     //scale = 0.7;     //1.0 is default
           
      File dir = new File(dataPath(foldername));
      File[] files = dir.listFiles();
