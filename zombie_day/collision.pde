@@ -31,17 +31,17 @@ class collision {
   int b2c(float x, float y, float w, float h, boolean IN) {         //check box to the circle
     int a=0;
     if(IN) {                                                     //use within the canvas
-      if(this.s.pos.x - this.s.radC < x) a += LEFT;
-      if(this.s.pos.y - this.s.radC < y) a += TOP;
-      if(this.s.pos.x + this.s.radC> x+w) a += RIGHT;
-      if(this.s.pos.y + this.s.radC> y+h) a += BOTTOM; 
+      if(this.s.pos.x - this.s.radCW < x) a += LEFT;
+      if(this.s.pos.y - this.s.radCH < y) a += TOP;
+      if(this.s.pos.x + this.s.radCW> x+w) a += RIGHT;
+      if(this.s.pos.y + this.s.radCH> y+h) a += BOTTOM; 
       
     } else {                                                       //use out of canvas
       
-      if(this.s.pos.x + this.s.radC < x) a += LEFT;
-      if(this.s.pos.y + this.s.radC < y) a += TOP;
-      if(this.s.pos.x - this.s.radC > x+w) a += RIGHT;
-      if(this.s.pos.y - this.s.radC > y+h) a += BOTTOM; 
+      if(this.s.pos.x + this.s.radCW < x) a += LEFT;
+      if(this.s.pos.y + this.s.radCH < y) a += TOP;
+      if(this.s.pos.x - this.s.radCW > x+w) a += RIGHT;
+      if(this.s.pos.y - this.s.radCH > y+h) a += BOTTOM; 
     }
     return(a);
   }
@@ -50,7 +50,7 @@ class collision {
     if(this.s.id != s.id) {                                     //check if current id (in dist around main sprite) is not equal to the main sprite 
       PVector dist = PVector.sub(this.s.pos, s.pos);
       float d = dist.mag();
-      float md = (this.s.radC + s.radC)/2.0;   //md is the miniimum distance || also, divide by 2 since it looking at diameter but want radius
+      float md = (this.s.radCW + s.radCW)/2.0;   //md is the miniimum distance || also, divide by 2 since it looking at diameter but want radius
       if(d < md) return(IN);
     }
     return(OUT);

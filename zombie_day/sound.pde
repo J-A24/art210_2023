@@ -1,22 +1,36 @@
-class audio {
+class sound {
   PApplet app;
-  SoundFile hi;
-  float soundLevel = 1;
+  SoundFile me;
+  float soundLevel = 0;
   
   
-  audio (PApplet app) {  
+  sound (PApplet app , String filename) {  
     this.app = app;
-    this.env = new Env(this.app);
+    this.me = new SoundFile(this.app,filename);
+    this.me.loop();
   }
   
-  void fadeIn() {
+  void play() {
      
   }
   
-  void fadeOut() {
-     
-  }
-  
-  void show() {
-     this.hi.amp(this.soundLevel);
-  }
+   void fadeIn()
+   {
+     Ani.to(this, 5, "soundLevel", 1);
+   }
+   
+   void fadeOut()
+   {
+     Ani.to(this, 5, "soundLevel", 0);
+   }
+   
+   void update()
+   {
+     //this.soundLevel = mouseX/(float)width;
+   }
+   
+   void show()
+   {
+     this.me.amp(this.soundLevel);
+   }
+}

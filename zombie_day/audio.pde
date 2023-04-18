@@ -1,4 +1,4 @@
-class audio {
+/*class audio {
   PApplet app;                         //is an applet
   
   SoundFile[] amb = new SoundFile[5];  //ambient sound         //SF is a medthod from the imported sound
@@ -46,4 +46,4 @@ class audio {
     
   }
   
-}
+} */

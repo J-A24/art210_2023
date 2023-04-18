@@ -7,12 +7,11 @@ float attackTime = 0.001;
 float sustainTime = 0.004;
 float sustainLevel = 0.3;
 float releaseTime = 1.4;
-audio au;
-
-
+//audio au;
+sound m;
 
 Bob s;
-int n = 20;
+int n = 1000;
 Object[] z = new Object[n];
 
 boolean test = false;       //to allow when clicking if testing hitboxes display
@@ -22,15 +21,23 @@ void setup() {
   size(720,720);
   textAlign(CENTER);
   textSize(128);
+  m = new sound(this, "music.wav");
+  Ani.init(this);
   
-  au = new audio(this, "x.mp3");
-  au.music();
+  //au = new audio(this, "x.mp3");
+  //au.music();
   
    
   s = new Bob("ANY", new PVector(width/2,height/2), new PVector(0,0), PVector.random2D());
   for(int i=0; i <n; i++) {
      z[i] = new Object("ANYYY"+i, new PVector(width/2,height/2), new PVector(0,0), PVector.random2D());
   }  
+  
+  // Create triangle wave
+  triOsc = new TriOsc(this);
+
+  // Create the envelope 
+  env  = new Env(this); 
 }
 
 void draw () {
@@ -46,24 +53,30 @@ void draw () {
   for(int i=0; i <n; i++) {
     z[i].update();
     z[i].show();
-    z[i].check();
+    z[i].check(n);
     z[i].test = test;
    } 
    
-   au.show();
-   au.update();
-   au.check();
+   m.show();
+   m.update();
+   
+   //au.show();
+   //au.update();
+   //au.check();
 }
 
 void mouseClicked() {
   if(test != true) test = true; 
   else test = false;
   
-  if(soundLevel == 0) {
-    Ani.to(this, .5, "soundLevel", 1);  
-  } else {
-    Ani.to(this, .5, "soundLevel", 0);
-  }
+  if(m.soundLevel != 0) m.fadeIn(); 
+  else m.fadeOut();
+  
+  //if(soundLevel == 0) {
+  //  Ani.to(this, .5, "soundLevel", 1);  
+  //} else {
+  //  Ani.to(this, .5, "soundLevel", 0);
+  //}
   
   //if(au.music[0].isPlaying()) {
     //au.env(au.music[0], 0, 0, 1, 1);  //for a fading stop effect

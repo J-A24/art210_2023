@@ -13,13 +13,15 @@ class Object extends sprite {
      this.rotate = 90.0;                            //initialize the roatation of the object (I didnt need this but good to know if make use of later)
      this.w = 45;                                      //change width of hitbox
      this.h = 45;                                      // change height of hitbox
+     
+     this.radCW = w/2.0;
+     this.radCH = h/2.0;
+     
      this.reg.x = this.w/2;                  //offset the animation X around the hitbox
      this.reg.y = this.h /2;             //offset the animation Y around the hitbox
-     
-     this.radC = w/2.15;
   }
   
-  void check() {
+  void check(int n) {
     collision c = new collision(this, true);
     int a = c.b2c(100,100,width-200,height-200+this.h,false);     
     if(a == collision.BOTTOM) {
@@ -33,6 +35,15 @@ class Object extends sprite {
     //a = c.c2c(s);                          //when these objects collide with Bob
     //if(a == collision.IN) {                     //a: is just a varible for the result
     //}
+    
+  for(int i=0; i <n; i++) {
+      a = c.c2c(z[i]);                         
+      if(a == collision.IN) {                    
+        //this.pos.x = random(100, width -100);       //give new x
+        //this.pos.y = -this.h+random(-720*2,0);      // give new y
+        //s.acc.x *= constrain(random(-3,2 ), -10,10); 
+        //s.vel.x *= -1.0; 
+      }
+    }
   }
-  
 } 

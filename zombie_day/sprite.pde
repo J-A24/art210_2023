@@ -5,7 +5,8 @@ class sprite {
   float w = 100;  //width of collison box
   float h = 100;  //height of collison box
   PVector reg = new PVector(w/2.0, h/2.0);  //set registation point in center of object
-  float radC = w/2.0;    //radius of collsion box
+  float radCW = w/2.0;    //radius of collsion box (width)
+  float radCH = h/2.0;    //radius of collsion box (height)
   boolean test = false;
   
   int maxA = 10;         //Mamium number of animations
@@ -42,7 +43,7 @@ class sprite {
   }
   
   void show() {
-       pushMatrix();
+      pushMatrix();
        translate(this.pos.x, this.pos.y);      //need to center on canvas
        pushMatrix();
          scale(this.scale);
@@ -51,7 +52,7 @@ class sprite {
          this.A[this.curA].show();
        popMatrix();
        test_show();           //for testing if needed later on
-     popMatrix();
+      popMatrix();
   }
   
   void test_show() {             //shows hitboxes
@@ -63,10 +64,10 @@ class sprite {
          noStroke();
          
          fill(color(0, 255, 10,60));
-         circle(0,0,this.radC*2);
+         ellipse(0,0,this.radCW*2, this.radCH*2);
          
          fill(color(255,50,10));
-         circle(0,0,10);
+         ellipse(0,0,10,10);
        popMatrix();
     }
   }

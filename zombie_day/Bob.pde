@@ -9,15 +9,21 @@ class Bob extends sprite {    //extends: so Bob has everything that is in the sp
      this.acc = new PVector(0.05,0);                                    //walk speed horizontal ONLY - else could walk out of collion box
      this.regA(new animation("zombie", "svg"));                             //animation 1
      this.regA(new animation("r_zombie", "svg"));                          //animation 0 - reverse
-     this.reg.x = this.w-60;
      
      this.scale = 0.7;                                      //scale of object
      this.pos.y = height-this.h-75;
+     this.h = this.h/2+40;              //change height of hitbox
+     this.w = this.w+20;              //change height of hitbox
+     
+     this.radCW = w/2.0;
+     this.radCH = h/2.0;
+     
+     this.reg.x = this.w-60;
   }
   
   void check(int n) {
     collision c = new collision(this, true);
-    int a = c.b2c(100,100,width-200,height-200,true);
+    int a = c.b2c(100,100,width-200,height-200,false);    //fit to box???
     if(a == collision.RIGHT || a == collision.LEFT) {            //flip direction
       this.acc.x *= -1.0; 
       this.vel.x *= -1.0; 
@@ -34,7 +40,7 @@ class Bob extends sprite {    //extends: so Bob has everything that is in the sp
     for(int i=0; i <n; i++) {
       a = c.c2c(z[i]);                          //when these objects collide with Bob
       if(a == collision.IN) {                     //a: is just a varible for the result
-          hits += .2;                          //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+          hits += .3;                          //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
           text("HIT!  "+ int(hits), width/2, height-6);     //round points to be an intiger
       }
     }
