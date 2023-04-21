@@ -16,12 +16,12 @@ class sound {
   
    void fadeIn()
    {
-     Ani.to(this, 5, "soundLevel", 1);
+     //Ani.to(this, 5, "soundLevel", 1);
    }
    
    void fadeOut()
    {
-     Ani.to(this, 5, "soundLevel", 0);
+     //Ani.to(this, 5, "soundLevel", 0);
    }
    
    void update()
@@ -31,6 +31,6 @@ class sound {
    
    void show()
    {
-     this.me.amp(this.soundLevel);
+     //this.me.amp(this.soundLevel);
    }
 }

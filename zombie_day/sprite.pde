@@ -7,7 +7,7 @@ class sprite {
   PVector reg = new PVector(w/2.0, h/2.0);  //set registation point in center of object
   float radCW = w/2.0;    //radius of collsion box (width)
   float radCH = h/2.0;    //radius of collsion box (height)
-  boolean test = false;
+  boolean DEBUG = false;
   
   int maxA = 10;         //Mamium number of animations
   int curA = 0;           //current animation
@@ -56,7 +56,7 @@ class sprite {
   }
   
   void test_show() {             //shows hitboxes
-    if(test) {              //test: is created in setup (zombie day)
+    if(DEBUG) {              //test: is created in setup (zombie day)
        pushMatrix();
          noFill();
          stroke(75,0,0);

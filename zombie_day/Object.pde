@@ -1,16 +1,26 @@
 class Object extends sprite {    
   float spdM = 3;
+  int object;
   
   Object(String id, PVector pos, PVector vel, PVector acc) {
      super(id, pos, vel, acc);          //has the constructor of the parent class
      
-     this.acc = new PVector(0.00,0.03);
+     this.acc = new PVector(0.00001,0.03);
+     
+     // CREATES IMAGES
      this.regA(new animation("ball_test", "svg"));
+     this.regA(new animation("apple", "png"));
+     // ADDS IMAGES TO THE OBJECT
+     this.object = int(random(2));
+     this.curA = (this.object == 0) ? 0 : 1;
+     
+     this.regA(new animation("ball_test", "svg"));
+     this.regA(new animation("apple", "png"));
      this.pos.x = random(100, width -100);
      this.pos.y = -this.h+random(-720*2,0);
+     this.rotate = 90.0 + this.pos.x;                  //give a rotation
      
      this.scale = 0.45;
-     this.rotate = 90.0;                            //initialize the roatation of the object (I didnt need this but good to know if make use of later)
      this.w = 45;                                      //change width of hitbox
      this.h = 45;                                      // change height of hitbox
      
@@ -30,6 +40,7 @@ class Object extends sprite {
       this.vel.x = 0;
       this.vel.y = 0;
       this.acc.y = random(0.00, 0.6);
+      this.rotate = 90.0 + this.pos.x;            //give new rotation
     }   
     
     //a = c.c2c(s);                          //when these objects collide with Bob
