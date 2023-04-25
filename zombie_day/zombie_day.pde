@@ -13,11 +13,14 @@ sound m;
 
 //SPRITE SETUP
 Player p;
-int n = 300;                      //# of falling objects
+Awaken a;
+Bullet b;
+Awaken_Search c;         //click* object
+int n = 10;                      //# of falling objects
 Object[] z = new Object[n];
 int gState = 0;                   //current gamestate
 IntDict state = new IntDict();    //defines a gamestate
-IntDict buttons = new IntDict();  //current button
+boolean isHit = false;
 
 //OPTIONS
 boolean DEBUG = false;      //display hitboxes
@@ -57,6 +60,9 @@ void gameStates() {
 void createObjects() {
   // Create Player
   p = new Player("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  a = new Awaken("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  b = new Bullet("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  c = new Awaken_Search("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D(), 40);
 
   // Create Falling Objects
   for (int i=0; i <n; i++) {
@@ -75,28 +81,51 @@ void draw () {
     fill(255, 0, 0);
     textSize(108);
     text("BEGIN!" + "\npress Q", width/2, height/2);
+    // HAND
+    a.show();
+    a.update();
+    a.check();
+    // PLAYER
     p.show();
     p.update();
     p.check();
-
-    buttons.set(str(key), 1);
     if (key == 'q') gState = state.get("running");
   }
 
   if (gState == state.get("running")) {
+    // HAND
+    a.show();
+    a.DEBUG();
+    a.update();
+    a.check();
+    a.DEBUG = DEBUG;
+    // CLICK
+    c.show();
+    c.update();
+    c.DEBUG = DEBUG;
+    for (int i=0; i <n; i++) {
+    c.hit(z, i);
+    }
+    // BULLET
+    b.show();
+    b.update();
+    b.check();
+    b.DEBUG = DEBUG;
+    // PLAYER
     p.show();
     p.update();
     p.check();
     p.hitCount(n);            // get # of falling objects
     p.DEBUG = DEBUG;
+    // FALLING OBJECTS
     for (int i=0; i <n; i++) {
       z[i].update();
       z[i].show();
       z[i].check(n);
       z[i].DEBUG = DEBUG;
-      m.show();
-      m.update();
     }
+    m.show();
+    m.update();
   }
 
   if (gState == state.get("end")) {
@@ -106,6 +135,10 @@ void draw () {
     text("NOPE" + "\npress SPACE to restart", width/2, height/2);
     p.hits = 0;
     if (key == ' ') gState = state.get("menu");
+
+    // RESET HAND
+    a.acc = new PVector(0.05,0); 
+    a.vel.x = 1.0;
 
     // RESET CHARACTER
     p.acc = new PVector(0.05,0); 
@@ -145,13 +178,12 @@ void mouseClicked() {
 
 
 void keyPressed() {
-  //FIND KEY
-  buttons.set(str(key), 1);
-
   //CHANGE CHAR. DIRECTION
   if (key != 'q') {
     p.acc.x *= -1.0;
     p.vel.x *= -1.0;
+    a.acc.x *= -1.0;
+    a.vel.x *= -1.0;
   }
 
   //RELOAD THE GAME

@@ -5,14 +5,15 @@ class Object extends sprite {
   Object(String id, PVector pos, PVector vel, PVector acc) {
      super(id, pos, vel, acc);          //has the constructor of the parent class
      
-     this.acc = new PVector(0.00001,0.03);
+     this.acc = new PVector(0.0,0.05);        // SET FALLING SPEEED
      
      // CREATES IMAGES
      this.regA(new animation("ball_test", "svg"));
      this.regA(new animation("apple", "png"));
+          this.regA(new animation("hit_apple", "png"));
      // ADDS IMAGES TO THE OBJECT
      this.object = int(random(2));
-     this.curA = (this.object == 0) ? 0 : 1;
+     this.curA = (this.object == 0) ? 1 : 1;      // CHOSES and animation branch (1:1 is always apple) 
      
      this.regA(new animation("ball_test", "svg"));
      this.regA(new animation("apple", "png"));
@@ -39,8 +40,9 @@ class Object extends sprite {
       this.pos.x = random(100, width -100);
       this.vel.x = 0;
       this.vel.y = 0;
-      this.acc.y = random(0.00, 0.6);
-      this.rotate = 90.0 + this.pos.x;            //give new rotation
+      this.acc.y = random(0.005,0.05);
+      this.rotate = 90.0 + this.pos.x;            //give new rotation 
+      this.curA = 1;                              // RESET animation branch  
     }   
     
     //a = c.c2c(s);                          //when these objects collide with Bob
@@ -55,6 +57,6 @@ class Object extends sprite {
         //s.acc.x *= constrain(random(-3,2 ), -10,10); 
         //s.vel.x *= -1.0; 
       }
-    }
+    }  
   }
 } 

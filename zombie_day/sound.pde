@@ -8,6 +8,7 @@ class sound {
     this.app = app;
     this.me = new SoundFile(this.app,filename);
     this.me.loop();
+    this.me.stop();   //sound off
   }
   
   void play() {
