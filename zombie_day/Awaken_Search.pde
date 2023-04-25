@@ -7,9 +7,9 @@ class Awaken_Search extends sprite{
     this.mouse_rad = mouse_rad;
     
      this.acc = new PVector(0.0,0.0);                                    //walk speed horizontal ONLY - else could walk out of collion box
-     this.regA(new animation("ball_test", "svg"));            //For DEBUG
+     this.regA(new animation("CursorMG", "png"));            //For DEBUG
      
-     this.scale = 0.5;
+     this.scale = 0.1;
      this.pos.y = mouseY;
      this.pos.x = mouseX;
      this.h = 60;              //change height of hitbox
@@ -28,14 +28,12 @@ class Awaken_Search extends sprite{
   }
   
   void hit(Object[] z, int i) { 
-    //frameRate(10);
-    //Awaken_Search.check();
     for(int j = i ; j < z.length; j ++) {
       float dist2 = pos.dist(z[j].pos);
       if(int(dist2) < mouse_rad) {
         z[j].curA = 2;
       }
-      if(DEBUG) {
+      if(iDEBUG) {
         fill(255, 100, 200,10);
         ellipse(this.pos.x, this.pos.y, mouse_rad, mouse_rad);
         line(z[j].pos.x,z[j].pos.y, mouseX, mouseY);

@@ -53,7 +53,7 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
     textSize(128);
     text("HIT!  "+ int(hits), width/2, height-6);
     
-    if(int(hits) ==200) {                                // SET number of hits to end game
+    if(int(hits) ==40) {                                // SET number of hits to end game
       gState = state.get("end");
     }
   }

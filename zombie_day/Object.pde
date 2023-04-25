@@ -8,15 +8,32 @@ class Object extends sprite {
      this.acc = new PVector(0.0,0.05);        // SET FALLING SPEEED
      
      // CREATES IMAGES
-     this.regA(new animation("ball_test", "svg"));
-     this.regA(new animation("apple", "png"));
-          this.regA(new animation("hit_apple", "png"));
+     //this.regA(new animation("ball_test", "svg"));
+     this.regA(new animation("apple", "png"));  //(BASE APPLE)
+     /*this.regA(new animation("apple_1", "png"));  //(FOR WHEN HIT)
+     this.regA(new animation("apple_2", "png"));  
+     this.regA(new animation("apple_3", "png"));
+     this.regA(new animation("apple_4", "png"));
+     this.regA(new animation("apple_5", "png"));
+     this.regA(new animation("apple_6", "png"));
+     this.regA(new animation("apple_7", "png"));
+     this.regA(new animation("apple_8", "png")); */
+     
      // ADDS IMAGES TO THE OBJECT
      this.object = int(random(2));
      this.curA = (this.object == 0) ? 1 : 1;      // CHOSES and animation branch (1:1 is always apple) 
      
      this.regA(new animation("ball_test", "svg"));
      this.regA(new animation("apple", "png"));
+     /*this.regA(new animation("apple", "png"));  //(BASE APPLE)
+     this.regA(new animation("apple_1", "png"));  //(FOR WHEN HIT)
+     this.regA(new animation("apple_2", "png"));  
+     this.regA(new animation("apple_3", "png"));
+     this.regA(new animation("apple_4", "png"));
+     this.regA(new animation("apple_5", "png"));
+     this.regA(new animation("apple_6", "png"));
+     this.regA(new animation("apple_7", "png"));
+     this.regA(new animation("apple_8", "png"));*/
      this.pos.x = random(100, width -100);
      this.pos.y = -this.h+random(-720*2,0);
      this.rotate = 90.0 + this.pos.x;                  //give a rotation

@@ -80,6 +80,7 @@ void draw () {
     background(255, 155, 200);
     fill(255, 0, 0);
     textSize(108);
+    cursor(CROSS); 
     text("BEGIN!" + "\npress Q", width/2, height/2);
     // HAND
     a.show();
@@ -93,16 +94,19 @@ void draw () {
   }
 
   if (gState == state.get("running")) {
+    noCursor();
     // HAND
     a.show();
     a.DEBUG();
     a.update();
     a.check();
-    a.DEBUG = DEBUG;
+    a.DEBUG = iDEBUG;
     // CLICK
+    frameRate(1);
     c.show();
+    frameRate(60);
     c.update();
-    c.DEBUG = DEBUG;
+    c.iDEBUG = iDEBUG;
     for (int i=0; i <n; i++) {
     c.hit(z, i);
     }
@@ -110,19 +114,19 @@ void draw () {
     b.show();
     b.update();
     b.check();
-    b.DEBUG = DEBUG;
+    b.DEBUG = iDEBUG;
     // PLAYER
     p.show();
     p.update();
     p.check();
     p.hitCount(n);            // get # of falling objects
-    p.DEBUG = DEBUG;
+    p.iDEBUG = iDEBUG;
     // FALLING OBJECTS
     for (int i=0; i <n; i++) {
       z[i].update();
       z[i].show();
       z[i].check(n);
-      z[i].DEBUG = DEBUG;
+      z[i].DEBUG = iDEBUG;
     }
     m.show();
     m.update();
@@ -132,6 +136,7 @@ void draw () {
     background(100);
     fill(255, 0, 0);
     textSize(96);
+    cursor(CROSS); 
     text("NOPE" + "\npress SPACE to restart", width/2, height/2);
     p.hits = 0;
     if (key == ' ') gState = state.get("menu");
@@ -156,8 +161,8 @@ void draw () {
 
 void mouseClicked() {
   //TOGGLE HITBOXES
-  DEBUG = (DEBUG != true) ? true : false;
 
+  
   if (m.soundLevel != 0) m.fadeIn();
   else m.fadeOut();
 
