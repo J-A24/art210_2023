@@ -16,7 +16,7 @@ Player p;
 Awaken a;
 Bullet b;
 Awaken_Search c;         //click* object
-int n = 50;                      //# of falling objects
+int n = 10;                      //# of falling objects
 Object[] z = new Object[n];
 int gState = 0;                   //current gamestate
 IntDict state = new IntDict();    //defines a gamestate
@@ -101,7 +101,7 @@ void draw () {
     a.check();
     a.iDEBUG = iDEBUG;
     // CLICK
-    frameRate(10);
+    frameRate(random(24));
     c.show();
     frameRate(60);
     c.update();

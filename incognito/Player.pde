@@ -7,8 +7,8 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
      hits = 0;
     
      this.acc = new PVector(0.05,0);                                    //walk speed horizontal ONLY - else could walk out of collion box
-     this.regA(new animation("zombie", "svg"));                             //animation 1
-     this.regA(new animation("r_zombie", "svg"));                          //animation 0 - reverse
+     this.regA(new animation("player", "svg"));                             //animation 1
+     this.regA(new animation("r_player", "svg"));                          //animation 0 - reverse
      
      this.scale = 0.7;                                      //scale of object
      this.pos.y = height-this.h-75;
