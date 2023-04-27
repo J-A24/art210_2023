@@ -48,7 +48,8 @@ class Object extends sprite {
       this.vel.y = 0;
       this.acc.y = random(0.005,0.05);
       this.rotate = 90.0 + this.pos.x;            //give new rotation 
-      this.curA = 0;                              // RESET animation branch  
+      this.curA = 0;                              // RESET animation branch 
+      this.scale = 0.2;
     }   
     
     //a = c.c2c(s);                          //when these objects collide with Bob

@@ -11,27 +11,35 @@ float sustainLevel = 0.3;
 float releaseTime = 1.4;
 sound m;
 
-//SPRITE SETUP
+// SPRITE SETUP
 Player p;
 Awaken a;
-Bullet b;
-Awaken_Search c;         //click* object
-int n = 10;                      //# of falling objects
+int nn = 2; 
+Bullet[] b = new Bullet[nn];
+Awaken_Search c;                 // click * object
+int n = 10;                      // # of falling objects
 Object[] z = new Object[n];
-int gState = 0;                   //current gamestate
-IntDict state = new IntDict();    //defines a gamestate
+
+// GAMESTATE SETUP
+int gState = 0;                   // current gamestate
+IntDict state = new IntDict();    // defines a gamestate
 boolean isHit = false;
 
-//OPTIONS
-boolean iDEBUG = false;      //display hitboxes
+// WRITER SETUP
+writer w;
+int testWord = 1;                    // get index from list
+
+// OPTIONS
+boolean iDEBUG = false;      // display hitboxes
 
 
 void setup() {
   noStroke();
+  cursor(CROSS);
   size(720, 720, FX2D);
   //fullScreen(FX2D);
   textAlign(CENTER);
-  noCursor();
+  w = new writer();
 
   soundPlayer();
   createObjects();
@@ -62,7 +70,9 @@ void createObjects() {
   // Create Player
   p = new Player("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
   a = new Awaken("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
-  b = new Bullet("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  for(int j=0; j<nn; j++) {
+    b[j] = new Bullet("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  }
   c = new Awaken_Search("ANY", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D(), 40);
 
   // Create Falling Objects
@@ -76,8 +86,12 @@ void draw () {
   background(255);
   fill(222);
   rect(100, 100, width-200, height-200);
+  // WRITER
+  String v = w.word();
+  println(v);
 
   if (gState == state.get("menu")) {
+    cursor(CROSS);
     background(255, 155, 200);
     fill(255, 0, 0);
     textSize(108);
@@ -95,6 +109,7 @@ void draw () {
 
   if (gState == state.get("running")) {
     // HAND
+    noCursor();
     a.show();
     a.DEBUG();
     a.update();
@@ -110,10 +125,12 @@ void draw () {
       c.hit(z);
     }
     // BULLET
-    b.show();
-    b.update();
-    b.check();
-    b.iDEBUG = iDEBUG;
+    for (int j=0; j <nn; j++) {
+      b[j].show();
+      b[j].update();
+      b[j].check();
+      b[j].iDEBUG = iDEBUG;
+    }
     // PLAYER
     p.show();
     p.update();
@@ -132,6 +149,7 @@ void draw () {
   }
 
   if (gState == state.get("end")) {
+    cursor(CROSS);
     background(100);
     fill(255, 0, 0);
     textSize(96);

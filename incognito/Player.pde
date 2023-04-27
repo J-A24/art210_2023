@@ -46,8 +46,10 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
     
     for(int i=0; i <n; i++) {
       a = c.c2c(z[i]);                          //when these objects collide with Bob
+      if(a != collision.TOP && a != collision.OUT) {
       if(a == collision.IN) {                     //a: is just a varible for the result
-          hits += 0.3000;                          //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+          hits += 0.120;                          //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+      }
       }
     }
     textSize(128);

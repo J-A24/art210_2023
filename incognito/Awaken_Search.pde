@@ -33,7 +33,10 @@ class Awaken_Search extends sprite{
     for(int j = 0 ; j < z.length; j ++) {
       float dist2 = pos.dist(z[j].pos);
       if(int(dist2) < mouse_rad) {
-        z[j].curA = int(random(1,9));     // WHEN HIT CHANGE COLOR
+          if(z[j].curA ==0) {               // CANNOT CHANGE COLOR IF NOT BLACK APPLE
+          z[j].curA = int(random(1,9));     // WHEN HIT CHANGE COLOR
+          z[j].scale = 0.3;
+        }
       }
       if(iDEBUG) {
         line(z[j].pos.x,z[j].pos.y, mouseX, mouseY);
