@@ -7,12 +7,14 @@ class animation{
   int frame;     // the current frame
   float spd, counter, scale;
   boolean isSvg;
+  int aPos;       //set how the animation is positioned on spirte
   
   animation(String foldername, String ext) {       //ext is extension(file) type
      nFrames = 0;
      frame = 0;
      spd = 0.1;
      counter = 0;
+     this.aPos = CENTER;
           
      File dir = new File(dataPath(foldername));
      File[] files = dir.listFiles();
@@ -46,7 +48,7 @@ class animation{
     pushMatrix();
     //scale(this.scale);
     if(isSvg) {
-      shapeMode(CENTER);
+      shapeMode(CENTER);                  //CENTER will place image in center of spirte
       shape(this.frameS[this.frame],0,0); 
     } else {
       imageMode(CENTER);

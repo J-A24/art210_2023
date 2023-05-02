@@ -9,7 +9,7 @@ class sprite {
   float radCH = h/2.0;    //radius of collsion box (height)
   boolean iDEBUG = false;
   
-  int maxA = 10;         //Mamium number of animations
+  int maxA = 11;         //Mamium number of animations
   int curA = 0;           //current animation
   int nA = 0;         //how many animation it has
   animation[] A = new animation[maxA];

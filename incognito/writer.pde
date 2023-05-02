@@ -11,7 +11,7 @@ class writer {
   }
   
   String word() {
-    if(lines2.size() == 0) return("");
+    if(lines2.size() == 0) return("ERROR: OUT OF WORDS IN LIST");
     int value = floor(random(1)*lines2.size());
     String res = lines2.get(value);
     lines2.remove(value);

@@ -10,6 +10,9 @@ class Object extends sprite {
      
      // CREATES IMAGES
      this.regA(new animation("apple", "png"));
+     this.regA(new animation("duck", "png"));
+     
+     // CREATE IMAGES - WHEN HIT
      this.regA(new animation("apple_1", "png"));
      this.regA(new animation("apple_2", "png"));
      this.regA(new animation("apple_3", "png"));
@@ -18,10 +21,11 @@ class Object extends sprite {
      this.regA(new animation("apple_6", "png"));
      this.regA(new animation("apple_7", "png"));
      this.regA(new animation("apple_8", "png"));
+     this.regA(new animation("duckE", "png"));
      
      // ADDS IMAGES TO THE OBJECT
-     this.object = int(random(2));
-     this.curA = 0;
+     this.object = int(random(0,99));
+     this.curA = (this.object == 0) ? 1 : 0;
 
      this.pos.x = random(100, width -100);
      this.pos.y = -this.h+random(-720*2 +25,0);        //+# so centered in middle of sprite
@@ -48,7 +52,8 @@ class Object extends sprite {
       this.vel.y = 0;
       this.acc.y = random(0.005,0.05);
       this.rotate = 90.0 + this.pos.x;            //give new rotation 
-      this.curA = 0;                              // RESET animation branch 
+      this.object = int(random(0,99));              // RESET animation branch 
+      this.curA = (this.object == 0) ? 1 : 0;     // RESET animation branch 
       this.scale = 0.2;
     }   
     

@@ -11,6 +11,10 @@ float sustainLevel = 0.3;
 float releaseTime = 1.4;
 sound m;
 
+// SCENE SETUP
+ground bg;
+int maxGround = 1;
+
 // SPRITE SETUP
 Player p;
 Awaken a;
@@ -79,6 +83,11 @@ void createObjects() {
   for (int i=0; i <n; i++) {
     z[i] = new Object("ANYYY"+i, new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
   }
+  
+  // Create Background
+  for(int i = 0; i < this.maxGround; i = i + 1) {
+    bg = new ground("ground"+i, new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  }
 }
 
 
@@ -96,6 +105,28 @@ void draw () {
     fill(255, 0, 0);
     textSize(108);
     text("BEGIN!" + "\npress Q", width/2, height/2);
+    
+    // RESET HAND
+    //a.acc = new PVector(0.05,0); 
+    //a.vel.x = 1.0;
+
+    // RESET CHARACTER
+    //p.acc = new PVector(0.05,0); 
+    //p.vel.x = 1.0;
+
+    // RESET OBJECTS
+    for (int i=0; i <n; i++) {
+      z[i].acc = new PVector(0.00001, 0.03);
+      z[i].pos.x = random(100, width -100);
+      z[i].pos.y = -45+random(-720*2, 0);
+      z[i].vel.x = 0;
+      z[i].vel.y = 0;
+      z[i].acc.y = random(0.005,0.05);
+      z[i].rotate = 90.0 + z[i].pos.x;           
+      z[i].object = int(random(0,99));             
+      z[i].curA = (z[i].object == 0) ? 1 : 0;                    
+    }
+    
     // HAND
     a.show();
     a.update();
@@ -108,6 +139,12 @@ void draw () {
   }
 
   if (gState == state.get("running")) {
+    key = '_';          //Make sure is not "space" or other used key
+    // BACKGROUND
+    //bg.update;
+    //bg.update;
+    //bg.show();
+    
     // HAND
     noCursor();
     a.show();
@@ -115,15 +152,6 @@ void draw () {
     a.update();
     a.check();
     a.iDEBUG = iDEBUG;
-    // CLICK
-    frameRate(random(24));
-    c.show();
-    frameRate(60);
-    c.update();
-    c.iDEBUG = iDEBUG;
-    for (int i=0; i <n; i++) {
-      c.hit(z);
-    }
     // BULLET
     for (int j=0; j <nn; j++) {
       b[j].show();
@@ -144,6 +172,15 @@ void draw () {
       z[i].check(n);
       z[i].iDEBUG = iDEBUG;
     }
+    // CLICK
+    frameRate(random(24));
+    c.show();
+    frameRate(60);
+    c.update();
+    c.iDEBUG = iDEBUG;
+    for (int i=0; i <n; i++) {
+      c.hit(z);
+    }
     m.show();
     m.update();
   }
@@ -156,26 +193,6 @@ void draw () {
     text("NOPE" + "\npress SPACE to restart", width/2, height/2);
     p.hits = 0;
     if (key == ' ') gState = state.get("menu");
-
-    // RESET HAND
-    a.acc = new PVector(0.05,0); 
-    a.vel.x = 1.0;
-
-    // RESET CHARACTER
-    p.acc = new PVector(0.05,0); 
-    p.vel.x = 1.0;
-
-    // RESET OBJECTS
-    for (int i=0; i <n; i++) {
-      z[i].acc = new PVector(0.00001, 0.03);
-      z[i].pos.x = random(100, width -100);
-      z[i].pos.y = -45+random(-720*2, 0);
-      z[i].vel.x = 0;
-      z[i].vel.y = 0;
-      z[i].acc.y = random(0.005,0.05);
-      z[i].rotate = 90.0 + z[i].pos.x;           
-      z[i].curA = 0;                          
-    }
   }
 }
 
@@ -191,13 +208,14 @@ void mouseClicked() {
 
 void keyPressed() {
   //CHANGE CHAR. DIRECTION
-  if (key != 'q') {
+  if (key != 'Q' && key != 'R') {
     p.acc.x *= -1.0;
     p.vel.x *= -1.0;
     a.acc.x *= -1.0;
     a.vel.x *= -1.0;
   }
-
   //RELOAD THE GAME
-  if (key == 'q') createObjects();
+  if (key == 'R') {
+    gState = state.get("menu");
+  }
 }

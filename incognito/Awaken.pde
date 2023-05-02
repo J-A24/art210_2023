@@ -1,12 +1,11 @@
 class Awaken extends sprite {    //extends: so Bob has everything that is in the sprite class
   float spdM = 3;       //set topspeed
-     
+
   Awaken(String id, PVector pos, PVector vel, PVector acc) {
      super(id, pos, vel, acc);     
     
      this.acc = new PVector(0.05,0);                                    //walk speed horizontal ONLY - else could walk out of collion box
      this.regA(new animation("awaken", "svg"));
-     this.regA(new animation("r_awaken", "svg")); 
      
      this.scale = 0.45;                                      //scale of object
      this.pos.y = height-this.h-130;
@@ -38,11 +37,5 @@ class Awaken extends sprite {    //extends: so Bob has everything that is in the
     }    
     
     this.vel.limit(this.spdM);                       //set max speed of sprite
-    
-    if(this.vel.x < 0) {                            //which animations to use
-      this.curA = 1;             
-    } else {
-      this.curA = 0;
-    }
   }
 } 
