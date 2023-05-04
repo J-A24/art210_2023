@@ -5,11 +5,10 @@ class Awaken extends sprite {    //extends: so Bob has everything that is in the
      super(id, pos, vel, acc);     
     
      this.acc = new PVector(0.05,0);                                    //walk speed horizontal ONLY - else could walk out of collion box
-     this.regA(new animation("awaken", "svg"));
+     this.regA(new animation("awaken", "png"));
      
-     this.scale = 0.45;                                      //scale of object
-     this.pos.y = height-this.h-130;
-     //this.pos.x = width/2 + 10;
+     this.scale = 0.15;                                      //scale of object
+     this.pos.y = height-this.h-172;
      this.h = this.h/2+60;              //change height of hitbox
      this.w = this.w+20;              //change height of hitbox
      

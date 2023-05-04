@@ -12,8 +12,8 @@ float releaseTime = 1.4;
 sound m;
 
 // SCENE SETUP
-ground bg;
-int maxGround = 1;
+int maxGround;              
+scene[] bg = new scene[24];    //limit of bg that can be create in CreateObjects
 
 // SPRITE SETUP
 Player p;
@@ -85,8 +85,14 @@ void createObjects() {
   }
   
   // Create Background
-  for(int i = 0; i < this.maxGround; i = i + 1) {
-    bg = new ground("ground"+i, new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  maxGround = ceil(width/525.0)+1;   //1001 is size of image
+  println(maxGround);
+   bg[0] = new scene("any", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+  for(int k = 0; k <maxGround; k++) {
+    bg[k] = new scene("any", new PVector(width/2, height/2), new PVector(0, 0), PVector.random2D());
+     println(bg[k].pos.x);
+      bg[k].pos.x = k *525;
+      bg[k].pos.y = height-58;
   }
 }
 
@@ -135,15 +141,16 @@ void draw () {
     p.show();
     p.update();
     p.check();
-    if (key == 'q') gState = state.get("running");
+    if (key == 'Q') gState = state.get("running");
   }
 
   if (gState == state.get("running")) {
     key = '_';          //Make sure is not "space" or other used key
     // BACKGROUND
-    //bg.update;
-    //bg.update;
-    //bg.show();
+    for (int i=0; i <maxGround; i++) {
+      bg[i].show();
+      bg[i].iDEBUG = iDEBUG;
+    }
     
     // HAND
     noCursor();
@@ -218,4 +225,13 @@ void keyPressed() {
   if (key == 'R') {
     gState = state.get("menu");
   }
+}
+
+String millisAsTimer(int millis)     //I got this from Autumn
+{
+  int seconds = floor(millis / 1000);
+  int minutes = floor(seconds / 60);
+  int remainSeconds = seconds % 60;
+  String paddedSeconds = remainSeconds < 10 ? "0" + str(remainSeconds) : str(remainSeconds);
+  return str(minutes) + ":" + paddedSeconds;
 }
