@@ -39,9 +39,7 @@ class Awaken_Search extends sprite{
           z[j].acc.y = 1.5;
         } 
         if(z[j].curA ==1) {                 // Duck - WHEN HIT
-          z[j].curA = 10; 
-          z[j].acc.y = random(0.5);
-          z[j].rotate = 90.0 + this.pos.x;
+          z[j].curA = 10;
         }
       }
       if(iDEBUG) {

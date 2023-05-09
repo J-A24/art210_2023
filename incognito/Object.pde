@@ -22,6 +22,7 @@ class Object extends sprite {
      this.regA(new animation("apple_7", "png"));
      this.regA(new animation("apple_8", "png"));
      this.regA(new animation("duckE", "png"));
+     this.regA(new animation("apple_hit", "png"));
      
      // ADDS IMAGES TO THE OBJECT
      this.object = int(random(0,99));
@@ -53,7 +54,7 @@ class Object extends sprite {
       this.acc.y = random(0.005,0.05);
       this.rotate = 90.0 + this.pos.x;            //give new rotation 
       this.object = int(random(0,99));              // RESET animation branch 
-      this.curA = (this.object == 0) ? 1 : 0;     // RESET animation branch 
+      this.curA = (this.object == 0) ? 1 : 1;     // RESET animation branch 
       this.scale = 0.2;
     }   
     

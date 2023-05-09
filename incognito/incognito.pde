@@ -27,7 +27,9 @@ Object[] z = new Object[n];
 // GAMESTATE SETUP
 int gState = 0;                   // current gamestate
 IntDict state = new IntDict();    // defines a gamestate
+IntDict game = new IntDict();     // defines a minigame
 boolean isHit = false;
+int tPoint =0;                    //total # of points
 
 // WRITER SETUP
 writer w;
@@ -48,6 +50,7 @@ void setup() {
   soundPlayer();
   createObjects();
   gameStates();
+  gameSelect();
 }
 
 
@@ -69,6 +72,10 @@ void gameStates() {
   state.add("end", 2);
 }
 
+void gameSelect() {
+  game.add("run", 0);        //goal: to avoid being hit
+  game.add("running", 1);    //goal: hit every object
+}
 
 void createObjects() {
   // Create Player
@@ -96,6 +103,9 @@ void createObjects() {
   }
 }
 
+void miniGame() {
+  
+}
 
 void draw () {
   background(255);
@@ -104,7 +114,7 @@ void draw () {
   // WRITER
   String v = w.word();
   println(v);
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
   if (gState == state.get("menu")) {
     cursor(CROSS);
     background(255, 155, 200);
@@ -130,7 +140,8 @@ void draw () {
       z[i].acc.y = random(0.005,0.05);
       z[i].rotate = 90.0 + z[i].pos.x;           
       z[i].object = int(random(0,99));             
-      z[i].curA = (z[i].object == 0) ? 1 : 0;                    
+      z[i].curA = (z[i].object == 0) ? 1 : 0;  
+      z[i].scale = 0.2;
     }
     
     // HAND
@@ -143,7 +154,7 @@ void draw () {
     p.check();
     if (key == 'Q') gState = state.get("running");
   }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
   if (gState == state.get("running")) {
     key = '_';          //Make sure is not "space" or other used key
     // BACKGROUND
@@ -152,6 +163,9 @@ void draw () {
       bg[i].iDEBUG = iDEBUG;
     }
     
+    // TIME
+    text(v, 60, 40);
+    
     // HAND
     noCursor();
     a.show();
@@ -159,6 +173,7 @@ void draw () {
     a.update();
     a.check();
     a.iDEBUG = iDEBUG;
+    
     // BULLET
     for (int j=0; j <nn; j++) {
       b[j].show();
@@ -166,12 +181,14 @@ void draw () {
       b[j].check();
       b[j].iDEBUG = iDEBUG;
     }
+    
     // PLAYER
     p.show();
     p.update();
     p.check();
     p.hitCount(n);            // get # of falling objects
     p.iDEBUG = iDEBUG;
+    
     // FALLING OBJECTS
     for (int i=0; i <n; i++) {
       z[i].update();
@@ -179,6 +196,7 @@ void draw () {
       z[i].check(n);
       z[i].iDEBUG = iDEBUG;
     }
+    
     // CLICK
     frameRate(random(24));
     c.show();
@@ -188,10 +206,11 @@ void draw () {
     for (int i=0; i <n; i++) {
       c.hit(z);
     }
+    
     m.show();
     m.update();
   }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
   if (gState == state.get("end")) {
     cursor(CROSS);
     background(100);
@@ -227,8 +246,7 @@ void keyPressed() {
   }
 }
 
-String millisAsTimer(int millis)     //I got this from Autumn
-{
+String millisAsTimer(int millis) {     //I got this from Autumn
   int seconds = floor(millis / 1000);
   int minutes = floor(seconds / 60);
   int remainSeconds = seconds % 60;

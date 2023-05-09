@@ -45,11 +45,22 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
     fill(255,0,0);
     
     for(int i=0; i <n; i++) {
-      a = c.c2c(z[i]);                          //when these objects collide with Bob
-      if(a != collision.TOP && a != collision.OUT) {
-      if(a == collision.IN) {                     //a: is just a varible for the result
-          hits += 0.120;                          //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+      a = c.c2c(z[i]);                              //when these objects collide with Bob
+      if(z[i].curA ==0) {         //HIT BY BLACK APPLE
+        if(a == collision.IN) {                     //a: is just a varible for the result
+          hits += 1.0;                              //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+          z[i].curA = 11;  
+          z[i].scale = 0.3;
+          z[i].acc.y = 1.5;
+        }
       }
+      if(z[i].curA ==1) {          //HIT BY DUCK
+        if(a == collision.IN) {                     //a: is just a varible for the result
+          hits += 1.0;                              //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
+          z[i].curA = 10;  
+          z[i].scale = 0.3;
+          z[i].acc.y = 0.5;
+        }
       }
     }
     textSize(128);
