@@ -49,7 +49,7 @@ void setup() {
   //fullScreen(FX2D);
   w = new writer();
   tPoint = 0;
-  timer = 300;
+  timer = 30000;
 
   gState = 0;
   mGame = 0;
@@ -137,6 +137,7 @@ void draw () {
   // WRITER
   String v = w.word();
   println(v);
+  
 //////////////////////////////////////////////////////////////////////////////////////////////////
   if (gState == state.get("menu")) {
     cursor(CROSS);
@@ -156,6 +157,12 @@ void draw () {
     // RESET CHARACTER
     //p.acc = new PVector(0.05,0); 
     //p.vel.x = 1.0;
+    
+    // BULLET
+    for (int j=0; j <nn; j++) {
+      b[j].side = int(random(2));
+      println(b[j].side);
+    }
 
     // RESET OBJECTS
     for (int i=0; i <n; i++) {
@@ -268,8 +275,10 @@ void mouseClicked() {
 void keyPressed() {
   //CHANGE CHAR. DIRECTION
   if (key != 'Q' && key != 'R' && key !='E') {
+    // PLAYER
     p.acc.x *= -1.0;
     p.vel.x *= -1.0;
+    // HAND
     a.acc.x *= -1.0;
     a.vel.x *= -1.0;
   }
