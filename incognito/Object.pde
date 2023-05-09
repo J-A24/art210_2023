@@ -54,7 +54,7 @@ class Object extends sprite {
       this.acc.y = random(0.005,0.05);
       this.rotate = 90.0 + this.pos.x;            //give new rotation 
       this.object = int(random(0,99));              // RESET animation branch 
-      this.curA = (this.object == 0) ? 1 : 1;     // RESET animation branch 
+      this.curA = (this.object == 0) ? 1 : iDUCK;     // RESET animation branch -- iDuck is configured in setup
       this.scale = 0.2;
     }   
     

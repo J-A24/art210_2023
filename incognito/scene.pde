@@ -1,10 +1,14 @@
 class scene extends sprite{
-  int maxGround = ceil(width/1001.0);
+  int maxGround = ceil(width/126.0);
   
   scene(String id, PVector pos, PVector vel, PVector acc)
   {
     super(id, pos, vel, acc);
     this.regA(new animation("ground1","png"));
+    //this.regA(new animation("ground2","png"));
+    //this.regA(new animation("ground3","png"));
+    //this.regA(new animation("ground4","png"));
+    //this.regA(new animation("ground5","png"));
     for(int i = 0; i < this.nA; i++) {
       this.A[i].aPos = CORNER;
     }
