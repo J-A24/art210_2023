@@ -13,7 +13,7 @@ sound m;
 
 // SCENE SETUP
 int maxGround;              
-scene[] bg = new scene[24];     //limit of bg that can be create in CreateObjects
+scene[] bg = new scene[128];     //limit of bg that can be create in CreateObjects
 
 // SPRITE SETUP
 Player p;
@@ -38,6 +38,7 @@ int testWord = 1;                    // get index from list
 
 // OPTIONS
 boolean iDEBUG = false;             // display hitboxes
+int ms;                    // holds current ms run time
 int timer;                     /////////////////////////////////// time left in a minigame
 int iDUCK = 0;                 /////////////////////////////////// if (1) enables duck mode
 
@@ -49,7 +50,8 @@ void setup() {
   //fullScreen(FX2D);
   w = new writer();
   tPoint = 0;
-  timer = 30000;
+  ms = millis();
+  //timer = millis();
 
   gState = 0;
   mGame = 0;
@@ -137,7 +139,7 @@ void draw () {
   // WRITER
   String v = w.word();
   println(v);
-  
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
   if (gState == state.get("menu")) {
     cursor(CROSS);
@@ -161,7 +163,7 @@ void draw () {
     // BULLET
     for (int j=0; j <nn; j++) {
       b[j].side = int(random(2));
-      println(b[j].side);
+      //println(b[j].side);
     }
 
     // RESET OBJECTS
@@ -186,6 +188,9 @@ void draw () {
     p.show();
     p.update();
     p.check();
+    
+    // TIMER
+    ms = millis();
     if (key == 'Q') gState = state.get("running");
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,6 +207,7 @@ void draw () {
     // TIME
     fill(0);
     textSize(42);
+    timer = millis() - ms;
     text(millisAsTimer(timer), 140, height-24);
     
     // HAND
@@ -245,7 +251,6 @@ void draw () {
     for (int i=0; i <n; i++) {
       c.hit(z);
     }
-    
     m.show();
     m.update();
   }
@@ -262,7 +267,6 @@ void draw () {
   }
 }
 
-
 void mouseClicked() {
   //TOGGLE HITBOXES
   iDEBUG = (iDEBUG != true) ? true : false;
@@ -272,7 +276,7 @@ void mouseClicked() {
 }
 
 
-void keyPressed() {
+void keyReleased() {
   //CHANGE CHAR. DIRECTION
   if (key != 'Q' && key != 'R' && key !='E') {
     // PLAYER
@@ -294,10 +298,11 @@ void keyPressed() {
   }
 }
 
-String millisAsTimer(int millis) {     //I got this from Autumn
+String millisAsTimer(int millis) {     //I grabbed this from Autumn 
   int seconds = floor(millis / 1000);
   int minutes = floor(seconds / 60);
   int remainSeconds = seconds % 60;
   String paddedSeconds = remainSeconds < 10 ? "0" + str(remainSeconds) : str(remainSeconds);
+  if(seconds == 20) gState = state.get("end");
   return str(minutes) + ":" + paddedSeconds;
 }
