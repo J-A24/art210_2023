@@ -39,7 +39,7 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
   }
   
   
-  void hitCount(int n) {
+  void hitCount(int n, int nn) {
     collision c = new collision(this, true);
     int a = c.b2c(100,100,width-200,height-200,false);
     fill(255,0,0);
@@ -56,18 +56,25 @@ class Player extends sprite {    //extends: so Bob has everything that is in the
       }
       if(z[i].curA ==1) {          //HIT BY DUCK
         if(a == collision.IN) {                     //a: is just a varible for the result
-          hits += 1.0;                              //a bit of a cheat to count the number of hits since "break" isnt quick enough to stop multiple counts of the same object
           z[i].curA = 10;  
           z[i].scale = 0.3;
           z[i].acc.y = 0.5;
+          tPoint *= -2;
         }
       }
+    }
+    for(int j=0; j < nn; j++) {
+       float dist1 = pos.dist(b[j].pos);
+       if(dist1 < 45) {      // < # for distance from bullet to player
+         println("hi");
+          gState = state.get("end");
+       }
     }
     textSize(92);
     fill(216, 22, 142);
     text("HIT!  "+ int(hits), width/2, height-24);
     
-    if(int(hits) >=10) {                                // SET number of hits to end game
+    if(int(hits) >=6) {                                // SET number of hits to end game
       gState = state.get("end");
     }
   }

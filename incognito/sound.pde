@@ -2,7 +2,7 @@ class sound {
   PApplet app;
   SoundFile me;
   float soundLevel = 0;
-  
+  // UNFINISHED //
   
   sound (PApplet app , String filename) {  
     this.app = app;

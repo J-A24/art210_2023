@@ -5,10 +5,6 @@ class scene extends sprite{
   {
     super(id, pos, vel, acc);
     this.regA(new animation("ground1","png"));
-    //this.regA(new animation("ground2","png"));
-    //this.regA(new animation("ground3","png"));
-    //this.regA(new animation("ground4","png"));
-    //this.regA(new animation("ground5","png"));
     for(int i = 0; i < this.nA; i++) {
       this.A[i].aPos = CORNER;
     }

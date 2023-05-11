@@ -3,7 +3,7 @@ class writer {
   StringList lines2 = new StringList();
   
   writer() {
-    lines = loadStrings("positions.txt");
+    lines = loadStrings("positions2.txt");           //fills in data: positions or positions2
     for(int i = 0; i<lines.length; i++) {
      lines2.append(lines[i]); 
     }

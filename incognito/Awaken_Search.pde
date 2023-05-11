@@ -37,9 +37,11 @@ class Awaken_Search extends sprite{
           z[j].curA = int(random(2,9));     // APPLE - WHEN HIT CHANGE COLOR
           z[j].scale = 0.3;
           z[j].acc.y = 1.5;
+          tPoint += 1;
         } 
         if(z[j].curA ==1) {                 // Duck - WHEN HIT
           z[j].curA = 10;
+          tPoint *= -2;
         }
       }
       if(iDEBUG) {
